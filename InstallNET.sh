@@ -167,7 +167,7 @@ for BIN_DEP in `echo "$1" |sed 's/,/\n/g'`
     fi
   done
 if [ "$FullDependence" == '1' ]; then
-  echo -ne "\n\033[31mError! \033[0mPlease use '\033[33mapt-get\033[0m' or '\033[33myum\033[0m' install it.\n\n\n"
+  echo -ne "\n\033[31mError! \033[0mPlease use '\033[33mapt\033[0m' or '\033[33myum\033[0m' install it.\n\n\n"
   exit 1;
 fi
 }
@@ -198,7 +198,7 @@ function SelectMirror(){
       CurMirror="${MirrorBackup[$mirror]}"
       [ -n "$CurMirror" ] || continue
       MirrorURL=`echo "$MirrorTEMP" |sed "s#SUB_MIRROR#${CurMirror}#g"`
-      wget --no-check-certificate --spider --timeout=3 -o /dev/null "$MirrorURL"
+      wget --spider --timeout=3 -o /dev/null "$MirrorURL"
       [ $? -eq 0 ] && MirrorStatus=1 && break
     done
   [ $MirrorStatus -eq 1 ] && echo "$CurMirror" || exit 1
@@ -288,14 +288,14 @@ if [[ -z "$DIST" ]]; then
     SpikCheckDIST='1'
     DISTCheck="$(echo "$tmpDIST" |grep -o '[\.0-9]\{1,\}')";
     LinuxMirror=$(SelectMirror "$Relese" "$DISTCheck" "$VER" "$tmpMirror")
-    ListDIST="$(wget --no-check-certificate -qO- "$LinuxMirror/dir_sizes" |cut -f2 |grep '^[0-9]')"
+    ListDIST="$(wget -qO- "$LinuxMirror/dir_sizes" |cut -f2 |grep '^[0-9]')"
     DIST="$(echo "$ListDIST" |grep "^$DISTCheck" |head -n1)"
     [[ -z "$DIST" ]] && {
       echo -ne '\nThe dists version not found in this mirror, Please check it! \n\n'
       bash $0 error;
       exit 1;
     }
-    wget --no-check-certificate -qO- "$LinuxMirror/$DIST/os/$VER/.treeinfo" |grep -q 'general';
+    wget -qO- "$LinuxMirror/$DIST/os/$VER/.treeinfo" |grep -q 'general';
     [[ $? != '0' ]] && {
         echo -ne "\nThe version not found in this mirror, Please change mirror try again! \n\n";
         exit 1;
@@ -313,7 +313,7 @@ if [[ -z "$LinuxMirror" ]]; then
 fi
 
 if [[ "$SpikCheckDIST" == '0' ]]; then
-  DistsList="$(wget --no-check-certificate -qO- "$LinuxMirror/dists/" |grep -o 'href=.*/"' |cut -d'"' -f2 |sed '/-\|old\|Debian\|experimental\|stable\|test\|sid\|devel/d' |grep '^[^/]' |sed -n '1h;1!H;$g;s/\n//g;s/\//\;/g;$p')";
+  DistsList="$(wget -qO- "$LinuxMirror/dists/" |grep -o 'href=.*/"' |cut -d'"' -f2 |sed '/-\|old\|Debian\|experimental\|stable\|test\|sid\|devel/d' |grep '^[^/]' |sed -n '1h;1!H;$g;s/\n//g;s/\//\;/g;$p')";
   for CheckDEB in `echo "$DistsList" |sed 's/;/\n/g'`
     do
       [[ "$CheckDEB" == "$DIST" ]] && FindDists='1' && break;
@@ -403,16 +403,16 @@ echo -e "\n[\033[33m$Relese\033[0m] [\033[33m$DIST\033[0m] [\033[33m$VER\033[0m]
 
 if [[ "$linux_relese" == 'debian' ]] || [[ "$linux_relese" == 'ubuntu' ]]; then
   inUpdate=''; [ "$linux_relese" == 'ubuntu' ] && inUpdate='-updates'
-  wget --no-check-certificate -qO '/boot/initrd.img' "${LinuxMirror}/dists/${DIST}${inUpdate}/main/installer-${VER}/current/images/netboot/${linux_relese}-installer/${VER}/initrd.gz"
+  wget -qO '/boot/initrd.img' "${LinuxMirror}/dists/${DIST}${inUpdate}/main/installer-${VER}/current/images/netboot/${linux_relese}-installer/${VER}/initrd.gz"
   [[ $? -ne '0' ]] && echo -ne "\033[31mError! \033[0mDownload 'initrd.img' for \033[33m$linux_relese\033[0m failed! \n" && exit 1
-  wget --no-check-certificate -qO '/boot/vmlinuz' "${LinuxMirror}/dists/${DIST}${inUpdate}/main/installer-${VER}/current/images/netboot/${linux_relese}-installer/${VER}/linux"
+  wget -qO '/boot/vmlinuz' "${LinuxMirror}/dists/${DIST}${inUpdate}/main/installer-${VER}/current/images/netboot/${linux_relese}-installer/${VER}/linux"
   [[ $? -ne '0' ]] && echo -ne "\033[31mError! \033[0mDownload 'vmlinuz' for \033[33m$linux_relese\033[0m failed! \n" && exit 1
   MirrorHost="$(echo "$LinuxMirror" |awk -F'://|/' '{print $2}')";
   MirrorFolder="$(echo "$LinuxMirror" |awk -F''${MirrorHost}'' '{print $2}')";
 elif [[ "$linux_relese" == 'centos' ]]; then
-  wget --no-check-certificate -qO '/boot/initrd.img' "${LinuxMirror}/${DIST}/os/${VER}/isolinux/initrd.img"
+  wget -qO '/boot/initrd.img' "${LinuxMirror}/${DIST}/os/${VER}/isolinux/initrd.img"
   [[ $? -ne '0' ]] && echo -ne "\033[31mError! \033[0mDownload 'initrd.img' for \033[33m$linux_relese\033[0m failed! \n" && exit 1
-  wget --no-check-certificate -qO '/boot/vmlinuz' "${LinuxMirror}/${DIST}/os/${VER}/isolinux/vmlinuz"
+  wget -qO '/boot/vmlinuz' "${LinuxMirror}/${DIST}/os/${VER}/isolinux/vmlinuz"
   [[ $? -ne '0' ]] && echo -ne "\033[31mError! \033[0mDownload 'vmlinuz' for \033[33m$linux_relese\033[0m failed! \n" && exit 1
 else
   bash $0 error;
@@ -420,11 +420,11 @@ else
 fi
 if [[ "$linux_relese" == 'debian' ]]; then
   if [[ "$IncFirmware" == '1' ]]; then
-    wget --no-check-certificate -qO '/boot/firmware.cpio.gz' "http://cdimage.debian.org/cdimage/unofficial/non-free/firmware/${DIST}/current/firmware.cpio.gz"
+    wget -qO '/boot/firmware.cpio.gz' "http://cdimage.debian.org/cdimage/unofficial/non-free/firmware/${DIST}/current/firmware.cpio.gz"
     [[ $? -ne '0' ]] && echo -ne "\033[31mError! \033[0mDownload 'firmware' for \033[33m$linux_relese\033[0m failed! \n" && exit 1
   fi
   if [[ "$ddMode" == '1' ]]; then
-    vKernel_udeb=$(wget --no-check-certificate -qO- "http://$DISTMirror/dists/$DIST/main/installer-$VER/current/images/udeb.list" |grep '^acpi-modules' |head -n1 |grep -o '[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}-[0-9]\{1,2\}' |head -n1)
+    vKernel_udeb=$(wget -qO- "http://$DISTMirror/dists/$DIST/main/installer-$VER/current/images/udeb.list" |grep '^acpi-modules' |head -n1 |grep -o '[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}-[0-9]\{1,2\}' |head -n1)
     [[ -z "vKernel_udeb" ]] && vKernel_udeb="3.16.0-6"
   fi
 fi
@@ -766,9 +766,9 @@ WinRDP(){
   [[ $? -eq '0' ]] && {
     echo -ne '\nAdd ssl support...\n'
     [[ -n $SSL_SUPPORT ]] && {
-      wget --no-check-certificate -qO- "$SSL_SUPPORT" |tar -x
+      wget -qO- "$SSL_SUPPORT" |tar -x
       [[ ! -f  /tmp/boot/usr/bin/wget ]] && echo 'Error! SSL_SUPPORT.' && exit 1;
-      sed -i 's/wget\ -qO-/\/usr\/bin\/wget\ --no-check-certificate\ --retry-connrefused\ --tries=7\ --continue\ -qO-/g' /tmp/boot/preseed.cfg
+      sed -i 's/wget\ -qO-/\/usr\/bin\/wget\ --retry-connrefused\ --tries=7\ --continue\ -qO-/g' /tmp/boot/preseed.cfg
       [[ $? -eq '0' ]] && echo -ne 'Success! \n\n'
     } || {
     echo -ne 'Not ssl support package! \n\n';
