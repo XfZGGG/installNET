@@ -6,7 +6,7 @@ export PATH
 #	System Required: CentOS 6,Debian 8/9/10,Ubuntu 16/18
 #	Description: 一键重装系统
 #	Version: 1.0.1a
-#	Author: 千影(www.94ish.me),Vicer(moeclub.org)
+#	Author: 千影(94ish.me),Vicer(moeclub.org)
 #	modify by ichig0xf
 #=================================================
 
