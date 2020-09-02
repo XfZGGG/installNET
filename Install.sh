@@ -3,15 +3,15 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
 #=================================================
-#	System Required: CentOS 6/7,Debian 8/9,Ubuntu 16+
+#	System Required: CentOS 6,Debian 8/9/10,Ubuntu 16/18
 #	Description: 一键重装系统
-#	Version: 1.0.1
-#	Author: 千影,Vicer
-#	Blog: https://www.94ish.me/
+#	Version: 1.0.1a
+#	Author: 千影(www.94ish.me),Vicer(moeclub.org)
+#	modify by ichig0xf
 #=================================================
 
-sh_ver="1.0.1"
-github="raw.githubusercontent.com/chiakge/installNET/master"
+sh_ver="1.0.1a"
+github="raw.githubusercontent.com/ichig0xf/installNET/master"
 
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
 Info="${Green_font_prefix}[信息]${Font_color_suffix}"
@@ -21,10 +21,10 @@ Tip="${Green_font_prefix}[注意]${Font_color_suffix}"
 #安装环境
 first_job(){
 if [[ "${release}" == "centos" ]]; then
-	yum install -y xz openssl gawk file
+	yum install -y xz openssl gawk file ca-certificates
 elif [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
-	apt-get update
-	apt-get install -y xz-utils openssl gawk file	
+	apt update
+	apt install -y xz-utils openssl gawk file ca-certificates
 fi
 }
 
@@ -47,13 +47,13 @@ else
 		country="--mirror https://mirrors.tuna.tsinghua.edu.cn/debian/"
 	fi
 fi
-wget --no-check-certificate https://${github}/InstallNET.sh && chmod -x InstallNET.sh
+wget https://${github}/InstallNET.sh && chmod -x InstallNET.sh
 bash InstallNET.sh -${os} ${1} -v ${vbit} -${model} -p ${pw} ${country}
 }
 # 安装系统
 installadvanced(){
 read -p " 请设置参数:" advanced
-wget --no-check-certificate https://${github}/InstallNET.sh && chmod -x InstallNET.sh
+wget https://${github}/InstallNET.sh && chmod -x InstallNET.sh
 bash InstallNET.sh $advanced
 }
 # 切换位数
@@ -85,48 +85,43 @@ fi
 installCentos(){
 clear
 os="c"
-echo && echo -e " 一键网络重装管理脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
-  -- 就是爱生活 | 94ish.me --
-  
+echo && echo -e " 一键网络重装脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
+
 ————————————选择版本————————————
- ${Green_font_prefix}1.${Font_color_suffix} 安装 CentOS6.8系统
- ${Green_font_prefix}2.${Font_color_suffix} 安装 CentOS6.9系统
+ ${Green_font_prefix}1.${Font_color_suffix} 安装 CentOS6.10 系统
 ————————————切换模式————————————
- ${Green_font_prefix}3.${Font_color_suffix} 切换安装位数
- ${Green_font_prefix}4.${Font_color_suffix} 切换安装模式
- ${Green_font_prefix}5.${Font_color_suffix} 切换镜像源
+ ${Green_font_prefix}2.${Font_color_suffix} 切换安装位数
+ ${Green_font_prefix}3.${Font_color_suffix} 切换安装模式
+ ${Green_font_prefix}4.${Font_color_suffix} 切换国内/国外镜像源
 ————————————————————————————————
  ${Green_font_prefix}0.${Font_color_suffix} 返回主菜单" && echo
 
 echo -e " 当前模式: 安装${Red_font_prefix}${vbit}${Font_color_suffix}位系统，${Red_font_prefix}${model}${Font_color_suffix}模式,${Red_font_prefix}${country}${Font_color_suffix}镜像源。"
 echo
-read -p " 请输入数字 [0-11]:" num
+read -p " 请输入数字 [0-4]:" num
 case "$num" in
 	0)
 	start_menu
 	;;
 	1)
-	InstallOS "6.8"
+	InstallOS "6.10"
 	;;
 	2)
-	InstallOS "6.9"
-	;;
-	3)
 	switchbit
 	installCentos
 	;;
-	4)
+	3)
 	switchmodel
 	installCentos
 	;;
-	5)
+	4)
 	switchcountry
 	installCentos
 	;;
 	*)
 	clear
-	echo -e "${Error}:请输入正确数字 [0-11]"
-	sleep 5s
+	echo -e "${Error}:请输入正确数字 [0-4]"
+	sleep 1s
 	installCentos
 	;;
 esac
@@ -136,35 +131,34 @@ esac
 installDebian(){
 clear
 os="d"
-echo && echo -e " 一键网络重装管理脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
-  -- 就是爱生活 | 94ish.me --
-  
+echo && echo -e " 一键网络重装脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
+
 ————————————选择版本————————————
- ${Green_font_prefix}1.${Font_color_suffix} 安装 Debian7系统
- ${Green_font_prefix}2.${Font_color_suffix} 安装 Debian8系统
- ${Green_font_prefix}3.${Font_color_suffix} 安装 Debian9系统
+ ${Green_font_prefix}1.${Font_color_suffix} 安装 Debian8 系统
+ ${Green_font_prefix}2.${Font_color_suffix} 安装 Debian9 系统
+ ${Green_font_prefix}3.${Font_color_suffix} 安装 Debian10 系统
 ————————————切换模式————————————
  ${Green_font_prefix}4.${Font_color_suffix} 切换安装位数
  ${Green_font_prefix}5.${Font_color_suffix} 切换安装模式
- ${Green_font_prefix}6.${Font_color_suffix} 切换镜像源
+ ${Green_font_prefix}6.${Font_color_suffix} 切换国内/国外镜像源
 ————————————————————————————————
  ${Green_font_prefix}0.${Font_color_suffix} 返回主菜单" && echo
 
 echo -e " 当前模式: 安装${Red_font_prefix}${vbit}${Font_color_suffix}位系统，${Red_font_prefix}${model}${Font_color_suffix}模式,${Red_font_prefix}${country}${Font_color_suffix}镜像源。"
 echo
-read -p " 请输入数字 [0-11]:" num
+read -p " 请输入数字 [0-6]:" num
 case "$num" in
 	0)
 	start_menu
 	;;
 	1)
-	InstallOS "7"
-	;;
-	2)
 	InstallOS "8"
 	;;
-	3)
+	2)
 	InstallOS "9"
+	;;
+	3)
+	InstallOS "10"
 	;;
 	4)
 	switchbit
@@ -180,9 +174,9 @@ case "$num" in
 	;;
 	*)
 	clear
-	echo -e "${Error}:请输入正确数字 [0-11]"
-	sleep 5s
-	installCentos
+	echo -e "${Error}:请输入正确数字 [0-6]"
+	sleep 1s
+	installDebian
 	;;
 esac
 }
@@ -191,76 +185,66 @@ esac
 installUbuntu(){
 clear
 os="u"
-echo && echo -e " 一键网络重装管理脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
-  -- 就是爱生活 | 94ish.me --
+echo && echo -e " 一键网络重装脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
   
 ————————————选择版本————————————
- ${Green_font_prefix}1.${Font_color_suffix} 安装 Ubuntu14系统
- ${Green_font_prefix}2.${Font_color_suffix} 安装 Ubuntu16系统
- ${Green_font_prefix}3.${Font_color_suffix} 安装 Ubuntu18系统
+ ${Green_font_prefix}1.${Font_color_suffix} 安装 Ubuntu16.04 系统
+ ${Green_font_prefix}2.${Font_color_suffix} 安装 Ubuntu18.04 系统
 ————————————切换模式————————————
- ${Green_font_prefix}4.${Font_color_suffix} 切换安装位数
- ${Green_font_prefix}5.${Font_color_suffix} 切换安装模式
- ${Green_font_prefix}6.${Font_color_suffix} 切换镜像源
+ ${Green_font_prefix}3.${Font_color_suffix} 切换安装位数
+ ${Green_font_prefix}4.${Font_color_suffix} 切换安装模式
+ ${Green_font_prefix}5.${Font_color_suffix} 切换国内/国外镜像源
 ————————————————————————————————
  ${Green_font_prefix}0.${Font_color_suffix} 返回主菜单" && echo
 
 echo -e " 当前模式: 安装${Red_font_prefix}${vbit}${Font_color_suffix}位系统，${Red_font_prefix}${model}${Font_color_suffix}模式,${Red_font_prefix}${country}${Font_color_suffix}镜像源。"
 echo
-read -p " 请输入数字 [0-11]:" num
+read -p " 请输入数字 [0-5]:" num
 case "$num" in
 	0)
 	start_menu
 	;;
 	1)
-	InstallOS "trusty"
+	InstallOS "16.04"
 	;;
 	2)
-	InstallOS "xenial"
+	InstallOS "18.04"
 	;;
 	3)
-	InstallOS "cosmic"
-	;;
-	4)
 	switchbit
 	installUbuntu
 	;;
-	5)
+	4)
 	switchmodel
 	installUbuntu
 	;;
-	6)
+	5)
 	switchcountry
 	installUbuntu
 	;;
 	*)
 	clear
-	echo -e "${Error}:请输入正确数字 [0-11]"
-	sleep 5s
-	installCentos
+	echo -e "${Error}:请输入正确数字 [0-5]"
+	sleep 1s
+	installUbuntu
 	;;
 esac
 }
 #开始菜单
 start_menu(){
 clear
-echo && echo -e " 一键网络重装管理脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
-  -- 就是爱生活 | 94ish.me --
+echo && echo -e " 一键网络重装脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
   
-————————————重装系统————————————
- ${Green_font_prefix}1.${Font_color_suffix} 安装 CentOS系统
- ${Green_font_prefix}2.${Font_color_suffix} 安装 Debian系统
- ${Green_font_prefix}3.${Font_color_suffix} 安装 Ubuntu系统
+————————————选择系统————————————
+ ${Green_font_prefix}1.${Font_color_suffix} 安装 CentOS 系统
+ ${Green_font_prefix}2.${Font_color_suffix} 安装 Debian 系统
+ ${Green_font_prefix}3.${Font_color_suffix} 安装 Ubuntu 系统
  ${Green_font_prefix}4.${Font_color_suffix} 高级模式（自定义参数）
-————————————切换模式————————————
- ${Green_font_prefix}5.${Font_color_suffix} 切换安装位数
- ${Green_font_prefix}6.${Font_color_suffix} 切换安装模式
- ${Green_font_prefix}7.${Font_color_suffix} 切换镜像源
+ 按下组合键${Green_font_prefix}Ctrl+C${Font_color_suffix}退出
 ————————————————————————————————" && echo
 
-echo -e " 当前模式: 安装${Red_font_prefix}${vbit}${Font_color_suffix}位系统，${Red_font_prefix}${model}${Font_color_suffix}模式,${Red_font_prefix}${country}${Font_color_suffix}镜像源。"
 echo
-read -p " 请输入数字 [0-11]:" num
+read -p " 请输入数字 [1-4]:" num
 case "$num" in
 	1)
 	installCentos
@@ -274,22 +258,10 @@ case "$num" in
 	4)
 	installadvanced
 	;;
-	5)
-	switchbit
-	start_menu
-	;;
-	6)
-	switchmodel
-	start_menu
-	;;
-	7)
-	switchcountry
-	start_menu
-	;;
 	*)
 	clear
-	echo -e "${Error}:请输入正确数字 [0-11]"
-	sleep 5s
+	echo -e "${Error}:请输入正确数字 [1-4]"
+	sleep 1s
 	start_menu
 	;;
 esac
