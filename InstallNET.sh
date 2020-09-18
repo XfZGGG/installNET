@@ -357,7 +357,7 @@ else
   fi
 fi
 
-clear && echo -e "\n\033[36m# Install\033[0m\n"
+clear && echo -e "\n\033[36m# Installing...\033[0m\n"
 
 ASKVNC(){
   inVNC='y';
