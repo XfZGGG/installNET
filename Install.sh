@@ -85,7 +85,7 @@ fi
 installCentos(){
 clear
 os="c"
-echo && echo -e " 一键网络重装脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
+echo && echo -e " 向导式系统重装脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
 
 ————————————选择版本————————————
  ${Green_font_prefix}1.${Font_color_suffix} 安装 CentOS6.10 系统
@@ -131,7 +131,7 @@ esac
 installDebian(){
 clear
 os="d"
-echo && echo -e " 一键网络重装脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
+echo && echo -e " 向导式系统重装脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
 
 ————————————选择版本————————————
  ${Green_font_prefix}1.${Font_color_suffix} 安装 Debian8 系统
@@ -185,7 +185,7 @@ esac
 installUbuntu(){
 clear
 os="u"
-echo && echo -e " 一键网络重装脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
+echo && echo -e " 向导式系统重装脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
   
 ————————————选择版本————————————
  ${Green_font_prefix}1.${Font_color_suffix} 安装 Ubuntu16.04 系统
@@ -233,7 +233,7 @@ esac
 #开始菜单
 start_menu(){
 clear
-echo && echo -e " 一键网络重装脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
+echo && echo -e " 向导式系统重装脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
   
 ————————————选择系统————————————
  ${Green_font_prefix}1.${Font_color_suffix} 安装 CentOS 系统
