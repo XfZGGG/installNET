@@ -135,7 +135,7 @@ echo && echo -e " 一键网络重装脚本 ${Red_font_prefix}[v${sh_ver}]${Font_
 
 ————————————选择版本————————————
  ${Green_font_prefix}1.${Font_color_suffix} 安装 Debian8 系统
- ${Green_font_prefix}2.${Font_color_suffix} 安装 Debian9 系统
+ ${Green_font_prefix}2.${Font_color_suffix} 安装 Debian9 系统(推荐)
  ${Green_font_prefix}3.${Font_color_suffix} 安装 Debian10 系统(推荐)
 ————————————切换模式————————————
  ${Green_font_prefix}4.${Font_color_suffix} 切换安装位数
