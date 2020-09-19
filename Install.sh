@@ -4,7 +4,7 @@ export PATH
 
 #=================================================
 #	System Required: CentOS 6,Debian 8/9/10,Ubuntu 16/18
-#	Description: 一键重装系统
+#	Description: 向导式系统重装脚本
 #	Version: 1.0.1a
 #	Author: 千影(94ish.me),Vicer(moeclub.org)
 #	modify by ichig0xf
@@ -21,10 +21,10 @@ Tip="${Green_font_prefix}[注意]${Font_color_suffix}"
 #安装环境
 first_job(){
 if [[ "${release}" == "centos" ]]; then
-	yum install -y xz openssl gawk file ca-certificates
+	yum install -y xz openssl gawk file ca-certificates wget
 elif [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
 	apt update
-	apt install -y xz-utils openssl gawk file ca-certificates
+	apt install -y xz-utils openssl gawk file ca-certificates wget
 fi
 }
 
@@ -136,7 +136,7 @@ echo && echo -e " 一键网络重装脚本 ${Red_font_prefix}[v${sh_ver}]${Font_
 ————————————选择版本————————————
  ${Green_font_prefix}1.${Font_color_suffix} 安装 Debian8 系统
  ${Green_font_prefix}2.${Font_color_suffix} 安装 Debian9 系统
- ${Green_font_prefix}3.${Font_color_suffix} 安装 Debian10 系统
+ ${Green_font_prefix}3.${Font_color_suffix} 安装 Debian10 系统(推荐)
 ————————————切换模式————————————
  ${Green_font_prefix}4.${Font_color_suffix} 切换安装位数
  ${Green_font_prefix}5.${Font_color_suffix} 切换安装模式
@@ -237,7 +237,7 @@ echo && echo -e " 一键网络重装脚本 ${Red_font_prefix}[v${sh_ver}]${Font_
   
 ————————————选择系统————————————
  ${Green_font_prefix}1.${Font_color_suffix} 安装 CentOS 系统
- ${Green_font_prefix}2.${Font_color_suffix} 安装 Debian 系统
+ ${Green_font_prefix}2.${Font_color_suffix} 安装 Debian 系统(推荐)
  ${Green_font_prefix}3.${Font_color_suffix} 安装 Ubuntu 系统
  ${Green_font_prefix}4.${Font_color_suffix} 高级模式（自定义参数）
  按下组合键${Green_font_prefix}Ctrl+C${Font_color_suffix}退出
