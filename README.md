@@ -8,6 +8,8 @@ wget https://raw.githubusercontent.com/XfZGGG/installNET/master/Install.sh
 chmod +x Install.sh
 ./Install.sh
 ```
+按提示操作。
+等待…… 直到完成。
 ***
 (以在Debian下重装Debian为例)
 非向导式重装：
@@ -33,4 +35,4 @@ bash InstallNET.sh -d 10 -v 64 -a -p '[这里填密码]'
 ```
 
 等待……
-直到完成
+直到完成。
