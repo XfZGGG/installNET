@@ -31,7 +31,7 @@ screen -S screen01
 
 运行，重装
 ```
-bash InstallNET.sh -d 10 -v 64 -a -p '[这里填密码]'
+bash InstallNET.sh -d 10 -v 64 -a -p '[这里填root密码]'
 ```
 
 等待……
