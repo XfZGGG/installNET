@@ -18,9 +18,9 @@ chmod +x Install.sh
 apt update
 apt install -y xz-utils openssl gawk file
 ```
-然后下载脚本
+然后下载脚本并给其权限
 ```
-wget https://raw.githubusercontent.com/XfZGGG/installNET/master/InstallNET.sh
+wget https://raw.githubusercontent.com/XfZGGG/installNET/master/InstallNET.sh && chmod a+x InstallNET.sh
 ```
 
 可选步骤，开一个名为screen01的screen，并准备在其中运行脚本
