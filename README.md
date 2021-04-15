@@ -9,6 +9,8 @@ chmod +x Install.sh
 ./Install.sh
 ```
 
+
+
 (以在Debian下重装Debian为例)
 非向导式重装：
 首先确保安装了脚本所需软件
