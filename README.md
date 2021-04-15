@@ -1,6 +1,6 @@
 这是一个简陋的Linux系统网络重装脚本。
 原作者大佬的网站一直在维护，整理了一下，主要是方便自己用。
-
+***
 (以Debian为例)
 向导式重装：
 ```
@@ -8,9 +8,7 @@ wget https://raw.githubusercontent.com/XfZGGG/installNET/master/Install.sh
 chmod +x Install.sh
 ./Install.sh
 ```
-
-
-
+***
 (以在Debian下重装Debian为例)
 非向导式重装：
 首先确保安装了脚本所需软件
