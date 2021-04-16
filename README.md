@@ -3,13 +3,13 @@ Linux系统网络重装。
 
 # 以在Debian9下重装Debian9为例，以下为重装步骤：
 
-## 首先确保安装了所需软件,其中screen为可选项
+## 首先确保安装了所需软件
 ```
 apt update
 apt install -y xz-utils openssl gawk file wget ca-certificates screen
 ```
 
-### 可选步骤，开一个名为screen00的screen
+## 开一个名为screen00的screen
 ```
 screen -S screen00
 ```
