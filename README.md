@@ -25,7 +25,7 @@ bash InstallNET.sh -d 9 -v 64 -a
 ```
 ### 或者
 ```
-bash InstallNET.sh -d 9 -v 64 -a -p 'Passwd4root' -- mirror 'http://ftp.jp.debian.org/debian/'
+bash InstallNET.sh -d 9 -v 64 -a -p 'Passwd4root' --mirror 'http://ftp.jp.debian.org/debian/'
 ```
 回车后耐心等待重装……
 直到完成。
